@@ -11,24 +11,12 @@ const UsuariosPage = function () {
   };
 
   const [estado, setEstado] = useState<Estado>(Estado.Lendo);
-  const [usuarios, setUsuarios] = useState<Usuario[]>([
-    {
-      id: 1,
-      nome: 'Ana',
-      login: 'ana',
-      senha: '123',
-    },
-    {
-      id: 2,
-      nome: 'Breno',
-      login: 'breno',
-      senha: '123',
-    },
-  ]);
+  const [usuarios, setUsuarios] = useState<Usuario[]>([]);
 
   useEffect(function () {
     UsuariosService.lerTodos(
-      function () {
+      function (usuarios) {
+        setUsuarios(usuarios);
         setEstado(Estado.Lido);
       },
       function () {
@@ -36,7 +24,7 @@ const UsuariosPage = function () {
       }
     );
   }, [Estado.ErroLer, Estado.Lido]);
-  
+
   return (
     <>
       {(estado === Estado.Lendo) && (
