@@ -1,5 +1,6 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { useState } from 'react';
+import Usuario from '../models/Usuario';
 
 enum Estado {
   Lendo,
@@ -10,8 +11,16 @@ enum Estado {
 const Usuarios2Page = function () {
 
   const [estado, setEstado] = useState(Estado.ErroLer);
+  const [usuarios, setUsuarios] = useState<Usuario[]>([]);
 
-  const conexaoComSucesso = function() {
+  const geraLi = function(usuario: Usuario) {
+    return (
+      <li>{ usuario.nome }</li>
+    );
+  };
+
+  const conexaoComSucesso = function(res: AxiosResponse) {
+    setUsuarios(res.data);
     setEstado(Estado.Lido);
   };
 
@@ -43,9 +52,7 @@ const Usuarios2Page = function () {
         <>
           <h1>Usuários 2</h1>
           <ul>
-            <li>Ana</li>
-            <li>Breno</li>
-            <li>Carla</li>
+            {usuarios.map(geraLi)}
           </ul>
         </>
       )}
