@@ -1,54 +1,62 @@
-import { useEffect, useState } from 'react';
+import axios, { AxiosResponse } from 'axios';
+import { useState } from 'react';
 import Usuario from '../models/Usuario';
-import UsuariosService from '../services/Usuarios';
+
+enum Estado {
+  Lendo,
+  ErroLer,
+  Lido,
+};
 
 const UsuariosPage = function () {
 
-  enum Estado {
-    Lendo,
-    ErroLer,
-    Lido,
-  };
-
-  const [estado, setEstado] = useState<Estado>(Estado.Lendo);
+  const [estado, setEstado] = useState(Estado.ErroLer);
   const [usuarios, setUsuarios] = useState<Usuario[]>([]);
 
-  useEffect(function () {
-    UsuariosService.lerTodos(
-      function (usuarios) {
-        setUsuarios(usuarios);
-        setEstado(Estado.Lido);
-      },
-      function () {
-        setEstado(Estado.ErroLer);
-      }
+  const geraLi = function(usuario: Usuario) {
+    return (
+      <li>{ usuario.nome }</li>
     );
-  }, [Estado.ErroLer, Estado.Lido]);
+  };
+
+  const conexaoComSucesso = function(res: AxiosResponse) {
+    setUsuarios(res.data);
+    setEstado(Estado.Lido);
+  };
+
+  const conexaoComErro = function() {
+    setEstado(Estado.ErroLer);
+  };
+
+  const botaoCarregarClicado = function() {
+    setEstado(Estado.Lendo);
+    axios.get('http://localhost:4000/api/usuarios')
+    .then(conexaoComSucesso)
+    .catch(conexaoComErro);
+  };
 
   return (
     <>
       {(estado === Estado.Lendo) && (
         <p>Carregando...</p>
       )}
-
+      
       {(estado === Estado.ErroLer) && (
         <>
-          <p>ERRO! Não foi possível carregar.</p>
-          <button>Carregar</button>
+          <p>ERRO ao tentar carregar.</p>
+          <button onClick={botaoCarregarClicado}>Carregar</button>
         </>
       )}
-
+      
       {(estado === Estado.Lido) && (
         <>
           <h1>Usuários</h1>
           <ul>
-            {usuarios.map(function (usuario) {
-              return <li>{usuario.nome}</li>
-            })}
+            {usuarios.map(geraLi)}
           </ul>
-          <button>Novo</button>
         </>
       )}
+      
     </>
   );
 };
