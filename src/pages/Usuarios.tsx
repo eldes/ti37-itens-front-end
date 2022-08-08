@@ -18,6 +18,9 @@ const UsuariosPage = function () {
 
   const [estado, setEstado] = useState(Estado.ErroLer);
   const [usuarios, setUsuarios] = useState<Usuario[]>([]);
+  const [nome, setNome] = useState('');
+  const [login, setLogin] = useState('');
+  const [senha, setSenha] = useState('');
 
   const geraLi = function(usuario: Usuario) {
     return (
@@ -47,8 +50,24 @@ const UsuariosPage = function () {
 
   const botaoSalvarClicado = function() {
     setEstado(Estado.Salvando);
-    //TODO: Conectar no back-end
-    setEstado(Estado.Criado);
+
+    const novoUsuario: Usuario = {
+      nome,
+      login,
+      senha,
+    };
+
+    const criarComSucesso = function (res: AxiosResponse) {
+      alert(res.headers.location);
+      setEstado(Estado.Criado);
+    };
+    const criarComErro = function () {
+      setEstado(Estado.ErroCriar);
+    };
+
+    axios.post('http://localhost:4000/api/usuarios', novoUsuario)
+    .then(criarComSucesso)
+    .catch(criarComErro);
   };
 
   const botaoCancelarClicado = function() {
@@ -91,12 +110,12 @@ const UsuariosPage = function () {
         <p>ERRO ao tentar salvar.</p>
       )}
       
-      {(estado === Estado.Criar) && (
+      {((estado === Estado.Criar) || (estado === Estado.ErroCriar)) && (
         <form>
           <div>
-            <input placeholder='Nome' />
-            <input placeholder='Login' />
-            <input placeholder='Senha' type='password' />
+            <input placeholder='Nome' onChange={ function (e) {setNome(e.target.value)} } />
+            <input placeholder='Login'  onChange={ function (e) {setLogin(e.target.value)} } />
+            <input placeholder='Senha' type='password'  onChange={ function (e) {setSenha(e.target.value)} } />
           </div>
           <div>
             <button onClick={botaoSalvarClicado}>Salvar</button>
