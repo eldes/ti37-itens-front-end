@@ -1,13 +1,15 @@
 import styles from './FAB.module.css';
+import {MdAdd} from "react-icons/md";
+import { ReactNode } from 'react';
 
 type Props = {
-  text: string;
+  children: ReactNode;
   onClick?: () => void;
 };
 
 const FAB: React.FC<Props> = function (props) {
   return (
-    <button className={styles.FAB} onClick={props.onClick}>{props.text}</button>
+    <button className={styles.FAB} onClick={props.onClick}>{props.children}</button>
   );
 };
 

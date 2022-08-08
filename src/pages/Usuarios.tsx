@@ -2,6 +2,7 @@ import axios, { AxiosResponse } from 'axios';
 import { useState } from 'react';
 import FAB from '../components/FAB';
 import Usuario from '../models/Usuario';
+import {MdAdd} from 'react-icons/md';
 
 enum Estado {
   Lendo,
@@ -77,7 +78,9 @@ const UsuariosPage = function () {
       )}
       
       {((estado === Estado.Lido) || (estado === Estado.Criado)) && (
-        <FAB onClick={botaoNovoUsuarioClicado} text='Novo usuário' />
+        <FAB onClick={botaoNovoUsuarioClicado}>
+          <MdAdd />
+        </FAB>
       )}
 
       {(estado === Estado.Criado) && (
