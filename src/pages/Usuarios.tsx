@@ -24,7 +24,7 @@ const UsuariosPage = function () {
 
   const geraLi = function(usuario: Usuario) {
     return (
-      <li>{ usuario.nome }</li>
+      <li key={usuario.id}>{ usuario.nome }</li>
     );
   };
 
