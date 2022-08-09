@@ -1,6 +1,5 @@
-import styles from './FAB.module.css';
-import {MdAdd} from "react-icons/md";
 import { ReactNode } from 'react';
+import styles from './FAB.module.css';
 
 type Props = {
   children: ReactNode;

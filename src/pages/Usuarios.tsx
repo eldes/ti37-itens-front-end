@@ -1,8 +1,8 @@
 import axios, { AxiosResponse } from 'axios';
 import { useState } from 'react';
+import { MdAdd } from 'react-icons/md';
 import FAB from '../components/FAB';
 import Usuario from '../models/Usuario';
-import {MdAdd} from 'react-icons/md';
 
 enum Estado {
   Lendo,
@@ -57,10 +57,23 @@ const UsuariosPage = function () {
       senha,
     };
 
-    const criarComSucesso = function (res: AxiosResponse) {
-      alert(res.headers.location);
+    const lerNovoUsuarioComSucesso = function (res: AxiosResponse) {
+      const usuario = res.data;
+      usuarios.push(usuario);
       setEstado(Estado.Criado);
     };
+    
+    const lerNovoUsuarioComErro = function () {
+      setEstado(Estado.ErroLer);
+    };
+
+    const criarComSucesso = function (res: AxiosResponse) {
+      const endpoint = res.headers.location;
+      axios.get<Usuario>(`http://localhost:4000/api${endpoint}`)
+      .then(lerNovoUsuarioComSucesso)
+      .catch(lerNovoUsuarioComErro);
+    };
+
     const criarComErro = function () {
       setEstado(Estado.ErroCriar);
     };
