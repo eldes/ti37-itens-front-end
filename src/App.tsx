@@ -14,7 +14,7 @@ const App = function () {
           <Routes>
             <Route path='/' element={<HomePage />} />
             <Route path='/usuarios' element={<UsuariosPage />} />
-            <Route path='/usuario' element={<UsuarioPage />} />
+            <Route path='/usuario/:id' element={<UsuarioPage />} />
           </Routes>
         </main>
       </BrowserRouter>
