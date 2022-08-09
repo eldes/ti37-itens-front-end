@@ -1,0 +1,11 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.page {
+  flex-grow: 1;
+  background-color: #eee;
+  padding: 64px 16px;
+}

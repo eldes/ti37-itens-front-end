@@ -1,18 +1,24 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import './App.css';
+import styles from './App.module.css';
+import NavBar from './components/NavBar';
 import HomePage from './pages/Home';
+import UsuarioPage from './pages/Usuario';
 import UsuariosPage from './pages/Usuarios';
 
 const App = function () {
   return (
-    <>
+    <div className={styles.app}>
       <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<HomePage />} />
-          <Route path='/usuarios' element={<UsuariosPage />} />
-        </Routes>
+        <NavBar />
+        <main className={styles.page}>
+          <Routes>
+            <Route path='/' element={<HomePage />} />
+            <Route path='/usuarios' element={<UsuariosPage />} />
+            <Route path='/usuario' element={<UsuarioPage />} />
+          </Routes>
+        </main>
       </BrowserRouter>
-    </>
+    </div>
   );
 }
 
