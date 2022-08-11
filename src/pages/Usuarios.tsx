@@ -4,6 +4,7 @@ import { MdAdd } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import FAB from '../components/FAB';
 import Usuario from '../models/Usuario';
+import Api from '../services/Api';
 
 enum Estado {
   Lendo,
@@ -29,7 +30,7 @@ const UsuariosPage = function () {
         <Link to={`/usuario/${usuario.id}`}>
           {usuario.nome}
         </Link>
-      </li>
+      </li> 
     );
   };
 
@@ -44,7 +45,7 @@ const UsuariosPage = function () {
 
   const botaoCarregarClicado = function() {
     setEstado(Estado.Lendo);
-    axios.get('http://localhost:4000/api/usuarios')
+    Api.get('/usuarios')
     .then(conexaoComSucesso)
     .catch(conexaoComErro);
   };
@@ -74,7 +75,7 @@ const UsuariosPage = function () {
 
     const criarComSucesso = function (res: AxiosResponse) {
       const endpoint = res.headers.location;
-      axios.get<Usuario>(`http://localhost:4000/api${endpoint}`)
+      Api.get<Usuario>(endpoint)
       .then(lerNovoUsuarioComSucesso)
       .catch(lerNovoUsuarioComErro);
     };
@@ -83,7 +84,7 @@ const UsuariosPage = function () {
       setEstado(Estado.ErroCriar);
     };
 
-    axios.post('http://localhost:4000/api/usuarios', novoUsuario)
+    Api.post('/usuarios', novoUsuario)
     .then(criarComSucesso)
     .catch(criarComErro);
   };

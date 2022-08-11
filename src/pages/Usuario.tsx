@@ -2,6 +2,7 @@ import axios, { AxiosError, AxiosResponse } from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Usuario from '../models/Usuario';
+import Api from '../services/Api';
 
 const UsuarioPage = function () {
 
@@ -27,7 +28,7 @@ const UsuarioPage = function () {
 
   const htmlRenderizado = function () {
     setEstaCarregando(true);
-    axios.get<Usuario>(`http://localhost:4000/api/usuarios/${id}`)
+    Api.get<Usuario>(`/usuarios/${id}`)
     .then(lerUsuarioComSucesso)
     .catch(lerUsuarioComErro);
   };
