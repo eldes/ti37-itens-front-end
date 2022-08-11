@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { MdAdd } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import FAB from '../components/FAB';
@@ -18,7 +18,7 @@ enum Estado {
 
 const UsuariosPage = function () {
 
-  const [estado, setEstado] = useState(Estado.ErroLer);
+  const [estado, setEstado] = useState(Estado.Lendo);
   const [usuarios, setUsuarios] = useState<Usuario[]>([]);
   const [nome, setNome] = useState('');
   const [login, setLogin] = useState('');
@@ -43,11 +43,15 @@ const UsuariosPage = function () {
     setEstado(Estado.ErroLer);
   };
 
-  const botaoCarregarClicado = function() {
+  const carregar = useCallback(function () {
     setEstado(Estado.Lendo);
     Api.get('/usuarios')
     .then(conexaoComSucesso)
     .catch(conexaoComErro);
+  }, []);
+
+  const botaoCarregarClicado = function() {
+    carregar();
   };
 
   const botaoNovoUsuarioClicado = function() {
@@ -92,6 +96,12 @@ const UsuariosPage = function () {
   const botaoCancelarClicado = function() {
     setEstado(Estado.Lido);
   };
+
+  const htmlRenderizado = function () {
+    carregar();
+  };
+
+  useEffect(htmlRenderizado, [carregar]);
 
   return (
     <>
