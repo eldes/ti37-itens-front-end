@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Usuario from '../models/Usuario';
 import Api from '../services/Api';
 
@@ -13,6 +13,8 @@ const UsuarioPage = function () {
   const [estaCarregando, setEstaCarregando] = useState(false);
   const [status, setStatus] = useState(200);
 
+  const navigate = useNavigate();
+
   const lerUsuarioComSucesso = function(res: AxiosResponse) {
     setEstaCarregando(false);
     setStatus(res.status);
@@ -24,6 +26,29 @@ const UsuarioPage = function () {
     if (error.response) {
       setStatus(error.response.status);
     }
+  };
+
+  const removerUsuarioComSucesso = function (res: AxiosResponse) {
+    setEstaCarregando(false);
+    if (res.status === 204) {
+      navigate('/usuarios');
+    } else {
+      setStatus(res.status);
+    }
+  };
+
+  const removerUsuarioComErro = function (error: AxiosError) {
+    setEstaCarregando(false);
+    if (error.response) {
+      setStatus(error.response.status);
+    }
+  };
+
+  const botaoRemoverClicado = function () {
+    setEstaCarregando(true);
+    Api.delete(`/usuarios/${usuario?.id}`)
+    .then(removerUsuarioComSucesso)
+    .catch(removerUsuarioComErro);
   };
 
   const htmlRenderizado = function () {
@@ -56,7 +81,7 @@ const UsuarioPage = function () {
             <li>Login: {usuario?.login}</li>
             <li>Senha: {usuario?.senha}</li>
           </ul>
-          <button>Remover</button>
+          <button onClick={botaoRemoverClicado}>Remover</button>
         </>
       )}
     </>
