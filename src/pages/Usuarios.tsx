@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import { useState } from 'react';
 import { MdAdd } from 'react-icons/md';
+import { Link } from 'react-router-dom';
 import FAB from '../components/FAB';
 import Usuario from '../models/Usuario';
 
@@ -24,7 +25,11 @@ const UsuariosPage = function () {
 
   const geraLi = function(usuario: Usuario) {
     return (
-      <li key={usuario.id}>{ usuario.nome }</li>
+      <li key={usuario.id}>
+        <Link to={`/usuario/${usuario.id}`}>
+          {usuario.nome}
+        </Link>
+      </li>
     );
   };
 

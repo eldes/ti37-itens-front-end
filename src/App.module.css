@@ -9,3 +9,20 @@
   background-color: #eee;
   padding: 64px 16px;
 }
+
+a:link,
+a:hover,
+a:active,
+a:visited {
+  color: #009;
+}
+
+a:link,
+a:active,
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
