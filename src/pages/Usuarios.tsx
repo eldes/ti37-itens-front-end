@@ -1,5 +1,7 @@
-import axios, { AxiosResponse } from 'axios';
-import { useCallback, useEffect, useState } from 'react';
+import { Button } from '@material/react-button';
+import TextField, { HelperText, Input } from '@material/react-text-field';
+import { AxiosResponse } from 'axios';
+import { FormEvent, useCallback, useEffect, useState } from 'react';
 import { MdAdd } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import FAB from '../components/FAB';
@@ -142,13 +144,28 @@ const UsuariosPage = function () {
       {((estado === Estado.Criar) || (estado === Estado.ErroCriar)) && (
         <form>
           <div>
-            <input placeholder='Nome' onChange={ function (e) {setNome(e.target.value)} } />
-            <input placeholder='Login'  onChange={ function (e) {setLogin(e.target.value)} } />
-            <input placeholder='Senha' type='password'  onChange={ function (e) {setSenha(e.target.value)} } />
+            <TextField
+              label='Nome'
+              helperText={<HelperText>Seu nome completo</HelperText>}
+            >
+              <Input onChange={ function (e:FormEvent<HTMLInputElement>) {setNome(e.currentTarget.value)} } value={nome}/>
+            </TextField>
+            <TextField
+              label='Login'
+              helperText={<HelperText>Seu nome de usuário</HelperText>}
+            >
+              <Input placeholder='Login'  onChange={ function (e:FormEvent<HTMLInputElement>) {setLogin(e.currentTarget.value)} } value={login} />
+            </TextField>
+            <TextField
+              label='Senha'
+              helperText={<HelperText>Sua senha</HelperText>}
+            >
+              <Input placeholder='Senha' type='password' onChange={ function (e:FormEvent<HTMLInputElement>) {setSenha(e.currentTarget.value)} } value={senha}/>
+            </TextField>
           </div>
           <div>
-            <button onClick={botaoSalvarClicado}>Salvar</button>
-            <button onClick={botaoCancelarClicado}>Cancelar</button>
+            <Button outlined onClick={botaoSalvarClicado}>Salvar</Button>
+            <Button onClick={botaoCancelarClicado}>Cancelar</Button>
           </div>
         </form>
       )}
