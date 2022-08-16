@@ -1,6 +1,7 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import Button from '../components/Button';
 import Usuario from '../models/Usuario';
 import Api from '../services/Api';
 
@@ -11,7 +12,11 @@ const UsuarioPage = function () {
 
   const [usuario, setUsuario] = useState<Usuario>();
   const [estaCarregando, setEstaCarregando] = useState(false);
+  const [estaEditando, setEstaEditando] = useState(false);
   const [status, setStatus] = useState(200);
+  const [novoNome, setNovoNome] = useState('');
+  const [novoLogin, setNovoLogin] = useState('');
+  const [novaSenha, setNovaSenha] = useState('');
 
   const navigate = useNavigate();
 
@@ -51,6 +56,52 @@ const UsuarioPage = function () {
     .catch(removerUsuarioComErro);
   };
 
+  const botaoEditarClicado = function () {
+    if (usuario) {
+      setNovoNome(usuario.nome);
+      setNovoLogin(usuario.login);
+      setNovaSenha(usuario.senha);
+    }
+    setEstaEditando(true);
+  };
+
+  const editarUsuarioComSucesso = function (res: AxiosResponse) {
+    setEstaCarregando(false);
+    if (res.status === 204) {
+      setUsuario({
+        id: usuario?.id,
+        nome: novoNome,
+        login: novoLogin,
+        senha: novaSenha,
+      });
+      setEstaEditando(false);
+    }
+    setStatus(res.status);
+  };
+
+  const editarUsuarioComErro = function (error: AxiosError) {
+    setEstaCarregando(false);
+    if (error.response) {
+      setStatus(error.response.status);
+    }
+  };
+  
+  const botaoSalvarClicado = function () {
+    setEstaCarregando(true);
+    const novoUsuario = {
+      nome: novoNome,
+      login: novoLogin,
+      senha: novaSenha,
+    };
+    Api.put(`/usuarios/${usuario?.id}`, novoUsuario)
+    .then(editarUsuarioComSucesso)
+    .catch(editarUsuarioComErro);
+  };
+
+  const botaoCancelarClicado = function () {
+    setEstaEditando(false);
+  };
+
   const htmlRenderizado = function () {
     setEstaCarregando(true);
     Api.get<Usuario>(`/usuarios/${id}`)
@@ -74,16 +125,58 @@ const UsuarioPage = function () {
         <p>Usuário não cadastrado</p>
       )}
 
-      {(status === 200) && (
+      {(status === 204) && (
+        <p>SUCESSO ao salvar.</p>
+      )}
+
+      {(((status === 200) || (status === 204)) && (!estaEditando)) && (
         <>
           <h1>{id} - {usuario?.nome}</h1>
           <ul>
             <li>Login: {usuario?.login}</li>
             <li>Senha: {usuario?.senha}</li>
           </ul>
-          <button onClick={botaoRemoverClicado}>Remover</button>
+          {(usuario) && (
+            <>
+              <Button label='Editar' onClick={botaoEditarClicado} />
+              <button onClick={botaoRemoverClicado}>Remover</button>
+            </>
+          )}
         </>
       )}
+
+      {(estaEditando) && (
+        <form>
+          <div>
+            <input
+              placeholder='Nome'
+              value={novoNome}
+              onChange={function(e) {
+                setNovoNome(e.target.value)
+              }}
+            />
+            <input
+              placeholder='Login'
+              value={novoLogin}
+              onChange={function(e) {
+                setNovoLogin(e.target.value)
+              }}
+            />
+            <input
+              placeholder='Senha'
+              value={novaSenha}
+              onChange={function(e) {
+                setNovaSenha(e.target.value)
+              }}
+            />
+          </div>
+          <div>
+            <button type='button' onClick={botaoSalvarClicado}>Salvar</button>
+            <button type='button' onClick={botaoCancelarClicado}>Cancelar</button>
+          </div>
+        </form>
+      )}
+      
     </>
   );
 };
