@@ -124,7 +124,6 @@ const UsuariosPage = function () {
       
       {((estado === Estado.Lido) || (estado === Estado.Criar) || (estado === Estado.Salvando) || (estado === Estado.Criado)) && (
         <>
-          <h1>Usuários</h1>
           <List className={styles.mdcList}>
             {usuarios.map(geraLi)}
           </List>
