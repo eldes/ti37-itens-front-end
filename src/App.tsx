@@ -6,8 +6,6 @@ import TopAppBar, { TopAppBarRow, TopAppBarSection, TopAppBarTitle } from '@mate
 import '@material/react-top-app-bar/dist/top-app-bar.min.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import styles from './App.module.css';
-import AppContext from './AppContext';
-import NavBar from './components/NavBar';
 import HomePage from './pages/Home';
 import UsuarioPage from './pages/Usuario';
 import UsuariosPage from './pages/Usuarios';
