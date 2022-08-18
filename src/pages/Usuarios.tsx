@@ -1,9 +1,11 @@
 import { Button } from '@material/react-button';
 import { Fab } from '@material/react-fab';
+import List, { ListItem, ListItemGraphic, ListItemText } from '@material/react-list';
 import TextField, { HelperText, Input } from '@material/react-text-field';
 import { AxiosResponse } from 'axios';
 import { FormEvent, useCallback, useEffect, useState } from 'react';
 import { MdAdd } from 'react-icons/md';
+import { MdChevronRight } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import styles from '../App.module.css';
 import Usuario from '../models/Usuario';
@@ -28,12 +30,13 @@ const UsuariosPage = function () {
   const [senha, setSenha] = useState('');
 
   const geraLi = function(usuario: Usuario) {
-    return (
-      <li key={usuario.id}>
-        <Link to={`/usuario/${usuario.id}`}>
-          {usuario.nome}
-        </Link>
-      </li> 
+    return (      
+      <Link key={usuario.id} to={`/usuario/${usuario.id}`}>
+        <ListItem className={styles.mdcListItem}>
+          <ListItemText className={styles.mdcListItemText} primaryText={usuario.nome}/>
+          <ListItemGraphic className={styles.mdcListItemGraphic} graphic={<MdChevronRight />} />
+        </ListItem>
+      </Link>
     );
   };
 
@@ -122,9 +125,9 @@ const UsuariosPage = function () {
       {((estado === Estado.Lido) || (estado === Estado.Criar) || (estado === Estado.Salvando) || (estado === Estado.Criado)) && (
         <>
           <h1>Usuários</h1>
-          <ul>
+          <List className={styles.mdcList}>
             {usuarios.map(geraLi)}
-          </ul>
+          </List>
         </>
       )}
       
@@ -132,7 +135,7 @@ const UsuariosPage = function () {
         <Fab
           onClick={botaoNovoUsuarioClicado}
           icon={<MdAdd/>}
-          className={styles.fab}
+          className={styles.mdcFab}
         />
       )}
 

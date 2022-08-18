@@ -29,8 +29,29 @@ a:hover {
 
 /* MATERIAL DESIGN */
 
-.fab {
+.mdcFab {
   position: fixed;
   right: 16px;
   bottom: 16px;
+}
+
+.mdcList {
+}
+
+.mdcList a:link,
+.mdcList a:hover,
+.mdcList a:active,
+.mdcList a:visited {
+  text-decoration: none;
+  color: #666;
+}
+
+.mdcListItem {
+  display: flex;
+  justify-content: space-between ;
+}
+
+.mdcListItemText~.mdcListItemGraphic {
+  margin-right: 0px;
+  margin-left: 32px;
 }

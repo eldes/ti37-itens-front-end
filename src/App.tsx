@@ -1,8 +1,12 @@
 import '@material/react-button/dist/button.min.css';
 import '@material/react-fab/dist/fab.min.css';
+import '@material/react-list/dist/list.min.css';
 import '@material/react-text-field/dist/text-field.min.css';
+import TopAppBar, { TopAppBarRow, TopAppBarSection, TopAppBarTitle } from '@material/react-top-app-bar';
+import '@material/react-top-app-bar/dist/top-app-bar.min.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import styles from './App.module.css';
+import AppContext from './AppContext';
 import NavBar from './components/NavBar';
 import HomePage from './pages/Home';
 import UsuarioPage from './pages/Usuario';
@@ -12,7 +16,13 @@ const App = function () {
   return (
     <div className={styles.app}>
       <BrowserRouter>
-        <NavBar />
+        <TopAppBar fixed>
+          <TopAppBarRow>
+            <TopAppBarSection>
+              <TopAppBarTitle>Usuários</TopAppBarTitle>
+            </TopAppBarSection>
+          </TopAppBarRow>
+        </TopAppBar>
         <main className={styles.page}>
           <Routes>
             <Route path='/' element={<HomePage />} />

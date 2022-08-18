@@ -5,7 +5,9 @@
   "dependencies": {
     "@material/react-button": "^0.15.0",
     "@material/react-fab": "^0.15.0",
+    "@material/react-list": "^0.15.0",
     "@material/react-text-field": "^0.15.0",
+    "@material/react-top-app-bar": "^0.15.0",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
