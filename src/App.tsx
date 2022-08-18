@@ -1,4 +1,5 @@
 import '@material/react-button/dist/button.min.css';
+import '@material/react-fab/dist/fab.min.css';
 import '@material/react-text-field/dist/text-field.min.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import styles from './App.module.css';

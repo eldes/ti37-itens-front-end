@@ -1,10 +1,11 @@
 import { Button } from '@material/react-button';
+import { Fab } from '@material/react-fab';
 import TextField, { HelperText, Input } from '@material/react-text-field';
 import { AxiosResponse } from 'axios';
 import { FormEvent, useCallback, useEffect, useState } from 'react';
 import { MdAdd } from 'react-icons/md';
 import { Link } from 'react-router-dom';
-import FAB from '../components/FAB';
+import styles from '../App.module.css';
 import Usuario from '../models/Usuario';
 import Api from '../services/Api';
 
@@ -128,9 +129,11 @@ const UsuariosPage = function () {
       )}
       
       {((estado === Estado.Lido) || (estado === Estado.Criado)) && (
-        <FAB onClick={botaoNovoUsuarioClicado}>
-          <MdAdd />
-        </FAB>
+        <Fab
+          onClick={botaoNovoUsuarioClicado}
+          icon={<MdAdd/>}
+          className={styles.fab}
+        />
       )}
 
       {(estado === Estado.Criado) && (

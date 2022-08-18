@@ -1752,6 +1752,20 @@
     "@material/typography" "^14.0.0"
     tslib "^2.1.0"
 
+"@material/fab@^2.1.1":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@material/fab/-/fab-2.3.0.tgz#d2302b6f21bd84c7fa6d4196079d39bf7abd3cc2"
+  integrity sha512-XsRTbUMsH4pE/E8CkpAahwNywzwiz73nyBC0YxhzAxfHVO4oGwjcUsVlnFMSITj7K8aEyD/uMyAYwgISuAH83g==
+  dependencies:
+    "@material/animation" "^1.0.0"
+    "@material/elevation" "^1.1.0"
+    "@material/feature-targeting" "^0.44.1"
+    "@material/ripple" "^2.3.0"
+    "@material/rtl" "^0.42.0"
+    "@material/shape" "^1.1.1"
+    "@material/theme" "^1.1.0"
+    "@material/typography" "^2.3.0"
+
 "@material/feature-targeting@^0.44.1":
   version "0.44.1"
   resolved "https://registry.yarnpkg.com/@material/feature-targeting/-/feature-targeting-0.44.1.tgz#afafc80294e5efab94bee31a187273d43d34979a"
@@ -2018,6 +2032,15 @@
   integrity sha512-OnnQx1XEomYlmp9TQIRYy+UAzJG1NPlmBfX/oP6hkxB4bWcrR2MLbqR4J1RMLDjl7a6qfdU2HskWPYp0wS+4Pw==
   dependencies:
     "@material/button" "^1.1.0"
+    "@material/react-ripple" "^0.15.0"
+    classnames "^2.2.6"
+
+"@material/react-fab@^0.15.0":
+  version "0.15.0"
+  resolved "https://registry.yarnpkg.com/@material/react-fab/-/react-fab-0.15.0.tgz#e11ba78cd9ab621bee0fb58b0c213754736bb7fc"
+  integrity sha512-eodPQ3h/P42Vzo0K3WHJvOCqmW+63SRTxPywGMWyreYah5ImfQYGo/P4vDERx1xowqWG9lbvM+laHs4OMRVXUQ==
+  dependencies:
+    "@material/fab" "^2.1.1"
     "@material/react-ripple" "^0.15.0"
     classnames "^2.2.6"
 

@@ -26,3 +26,11 @@ a:visited {
 a:hover {
   text-decoration: underline;
 }
+
+/* MATERIAL DESIGN */
+
+.fab {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+}
